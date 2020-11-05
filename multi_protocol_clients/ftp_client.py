@@ -18,6 +18,8 @@ class FtpClient:
         else:
             self.ftp = FTP(self.host)
             self.ftp.login(user=self.username, passwd=self.password)
+            print('Successfully connected!')
+            print('-----------------------')
             print(self.ftp.getwelcome())
 
     def list_directories(self):

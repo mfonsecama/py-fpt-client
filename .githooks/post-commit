@@ -1,0 +1,3 @@
+#!/bin/sh
+
+echo -e "\e[34mCommit done successfully. Don't forget to push if required\e[0m"

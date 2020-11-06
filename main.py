@@ -20,7 +20,8 @@ def validate_and_execute_action(action, instanced_client):
     switcher = {
         'help': print_help,
         'connect': instanced_client.connect,
-        'dir': instanced_client.list_dir
+        'dir': instanced_client.list_dir,
+        'disconnect': instanced_client.disconnect
     }
     func = switcher.get(action, lambda: 'Invalid action')
     func()
@@ -29,7 +30,7 @@ def validate_and_execute_action(action, instanced_client):
 class Client:
 
     def __init__(self):
-        self.client: FtpClient = None
+        self.client = None
 
     def connect(self):
         if self.client is not None:
@@ -43,6 +44,14 @@ class Client:
     def list_dir(self):
         if self.client is not None:
             self.client.list_directories()
+        else:
+            print('Not connected')
+
+    def disconnect(self):
+        if self.client is not None:
+            self.client.quit()
+            self.client = None
+            print('Successfully disconnected')
 
 
 # Press the green button in the gutter to run the script.

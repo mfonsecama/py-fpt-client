@@ -33,4 +33,6 @@ class FtpClient:
         with open(dest, 'wb') as fp:
             self.ftp.retrbinary('RETR ' + name, fp.write)
 
+    def quit(self):
+        self.ftp.quit()
 

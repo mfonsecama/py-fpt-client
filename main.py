@@ -16,15 +16,16 @@ def print_help():
     return 'Help here!'
 
 
-def validate_and_execute_action(action, instanced_client):
+def validate_and_execute_action(action, args, instanced_client):
     switcher = {
         'help': print_help,
         'connect': instanced_client.connect,
         'dir': instanced_client.list_dir,
-        'disconnect': instanced_client.disconnect
+        'disconnect': instanced_client.disconnect,
+        'mkdir': instanced_client.make_dir
     }
     func = switcher.get(action, lambda: 'Invalid action')
-    func()
+    func(args)
 
 
 class Client:
@@ -53,13 +54,20 @@ class Client:
             self.client = None
             print('Successfully disconnected')
 
+    def make_dir(self, dir_name):
+        if self.client is not None:
+            #TODO: Make directory
+            print('Making dir')
+            #self.client.list_directories()
+        else:
+            print('Not connected')
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     client = Client()
     while True:
         value = read_input_action()
-        validate_and_execute_action(value, instanced_client=client)
+        validate_and_execute_action(value, '', instanced_client=client)
     # client = FtpClient(host='localhost', username='test', password='test')
     # client.list_directories()
     # client.get_file('TUSSPAT.pdf')
